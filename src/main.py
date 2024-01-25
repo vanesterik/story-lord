@@ -3,9 +3,9 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from openai import OpenAI
+
 from prompt import Prompt
 from utils import (
-    format_and_print,
     print_help,
     print_title_and_instuctions,
     print_version,
