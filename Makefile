@@ -12,3 +12,6 @@ run:
 
 test:
 	pdm run pytest tests
+
+typecheck:
+	pdm run mypy src

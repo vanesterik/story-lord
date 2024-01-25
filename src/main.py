@@ -1,82 +1,66 @@
-import os
-import textwrap
+from os import getenv
 from pathlib import Path
 
-import toml
 from dotenv import load_dotenv
 from openai import OpenAI
+from prompt import Prompt
+from utils import (
+    format_and_print,
+    print_help,
+    print_title_and_instuctions,
+    print_version,
+    write_to_clipboard,
+)
 
 # Load environment variables
 load_dotenv(Path(".env").absolute())
 
 # Create OpenAI client
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key=getenv("OPENAI_API_KEY"))
+
+# Create prompt object
+prompt = Prompt()
 
 
 def main() -> None:
-    # Clear screen
-    os.system("clear")
+    print_title_and_instuctions()
 
-    # Print app name and version
-    print(f"Story Lord v{get_project_version()}")
-
-    # Print instructions
-    print('Type ":q", "quit", or "exit" to exit.\n')
-
-    # Main loop
     while True:
         # Get user input
-        query = input("> ")
+        query = input(f"{prompt.type}> ")
 
         # Check if user wants to exit
-        if query in (":q", "quit", "exit"):
+        if query in ("exit"):
             break
+
+        # Check if user wants to see version
+        elif query in ("-v", "--version", "version"):
+            print_version()
+
+        # Check if user wants to get help
+        elif query in ("-h", "--help", "help"):
+            print_help()
+
+        # Check if user wants to change mode
+        elif query in ("academic", "normal", "story"):
+            print_title_and_instuctions()
+            prompt.enable_prompt_type(query)
 
         else:
             # Send query to OpenAI
             completion = client.chat.completions.create(
-                messages=[
-                    {
-                        "role": "user",
-                        "content": query,
-                    }
-                ],
-                model=os.getenv("OPENAI_MODEL") or "gpt-3.5-turbo",
+                messages=prompt.parse_prompt_messages(query),
+                model=getenv("OPENAI_MODEL") or "gpt-3.5-turbo",
             )
 
             # Define response
             response = completion.choices[0].message.content or ""
 
             # Copy response to clipboard
-            os.system(f'echo "{response}" | pbcopy')
+            write_to_clipboard(response)
 
-            # Print formatted response
-            print(format_response(response))
-
-
-def get_project_version() -> str:
-    # Load project from pyproject.toml
-    with open(Path("pyproject.toml").absolute(), "r") as f:
-        project = toml.load(f)
-    # Define varion
-    version = project["project"]["version"]
-
-    return version
-
-
-def format_response(content: str) -> str:
-    # Wrap text to 80 columns
-    content = "\n".join(
-        textwrap.wrap(
-            content,
-            width=80,
-            replace_whitespace=False,
-        )
-    )
-    # Add spacing
-    content = f"\n{content}\n"
-
-    return content
+            # Print respsonse to screen
+            print(f"\n{response}\n")
 
 
 if __name__ == "__main__":
