@@ -6,7 +6,7 @@ Story Lord is a command line tool that interfaces with [OpenAI](https://platform
 
 ## Rationale
 
-I am writing user stories for various projects on a daily basis. This tools helps me to generate user stories based on a specific prompt. By lowering the barrier to entry for writing user stories, I can focus on the content of the stories rather than the structure.
+I am writing user stories for various projects on a daily basis. This tools helps me to generate user stories based on a specific prompt. By lowering the barrier of writing user stories, I can focus on the content of the stories rather than the structure.
 
 ## Name
 
@@ -30,13 +30,7 @@ Start the application by running the following command:
 make run
 ```
 
-Enter a prompt and press enter. The application will then generate a story based on the prompt.
-
-## Todo
-
-- [ ] Add different modes (e.g. user story, poem, etc.)
-- [ ] Relocate functions to separate files
-- [ ] Add tests
+Enter a query and press enter. The application will then generate a user story based on your query.
 
 ## License
 

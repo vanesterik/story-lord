@@ -61,7 +61,7 @@ As a business analyst, I would like a `ReviewBarChart` subcomponent to be develo
 
 
 class Prompt:
-    def __init__(self, type: PropmpType = "normal") -> None:
+    def __init__(self, type: PropmpType = "story") -> None:
         self._type = type
 
     @property
