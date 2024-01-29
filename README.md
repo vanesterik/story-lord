@@ -10,7 +10,7 @@ I am writing user stories for various projects on a daily basis. This tools help
 
 ## Name
 
-Story Lord was the conductor of the Story Train and the main antagonist of the episode [Never Ricking Morty](https://www.imdb.com/title/tt10655686/). He possesses story-based powers and he is exhibiting meta knowledge to some degree. A rather fitting name for a tool that generates stories.
+Story Lord was the conductor of the Story Train and the main antagonist of the episode [Never Ricking Morty](https://www.imdb.com/title/tt10655686/) in the Rick and Morty series. He possesses story-based powers and he is exhibiting meta knowledge to some degree. A rather fitting name for a tool that generates stories.
 
 ## Instructions
 

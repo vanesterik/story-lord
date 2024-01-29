@@ -1,7 +1,6 @@
 from os import getenv
-from pathlib import Path
 
-from dotenv import load_dotenv
+from dotenv import find_dotenv, load_dotenv
 from openai import OpenAI
 
 from prompt import Prompt
@@ -11,15 +10,6 @@ from utils import (
     print_version,
     write_to_clipboard,
 )
-
-# Load environment variables
-load_dotenv(Path(".env").absolute())
-
-# Create OpenAI client
-client = OpenAI(api_key=getenv("OPENAI_API_KEY"))
-
-# Create prompt object
-prompt = Prompt()
 
 
 def main() -> None:
@@ -64,4 +54,14 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    # find and load .env files automagically
+    load_dotenv(find_dotenv())
+
+    # Create OpenAI client
+    client = OpenAI(api_key=getenv("OPENAI_API_KEY"))
+
+    # Create prompt object
+    prompt = Prompt()
+
+    # Run main function
     main()
